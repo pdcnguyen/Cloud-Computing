@@ -1,0 +1,154 @@
+---
+# - hosts: kube-node
+#   tasks:
+#     - name: Installing openshift on workers
+#       ansible.builtin.pip:
+#         name: openshift 
+
+- hosts: kube-control-plane[0]
+  environment:
+    PYTHONPATH: "/home/pdcnguyen/.local/lib/python3.8/site-packages"
+  tasks:
+
+    # - name: Pull backend images
+    #   community.general.docker_image:
+    #     name: pdcnguyen1998/cc:backend
+    #     source: pull
+
+    # - name: Pull frontend images
+    #   community.general.docker_image:
+    #     name: pdcnguyen1998/cc:frontend
+    #     source: pull
+
+    # - name: Create a k8s namespace
+    #   k8s:
+    #     name: cc
+    #     api_version: v1
+    #     kind: Namespace
+    #     state: present
+
+    - name: K8 backend deployment
+      k8s:
+        state: present
+        definition:
+          kind: Deployment
+          metadata:
+            name: cc-backend
+            namespace: cc
+            labels:
+              app: nginx-backend
+          spec:
+            replicas: 6
+            selector:
+              matchLabels:
+                app: nginx-backend
+            template:
+              metadata:
+                labels:
+                  app: nginx-backend
+              spec:
+                containers:
+                - name: nginx-backend
+                  image: pdcnguyen1998/cc:backend
+                  imagePullPolicy: Always
+                  ports:
+                    - containerPort: 8080
+                      name: backend-service
+                  readinessProbe:
+                    initialDelaySeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 2
+                    httpGet:
+                      scheme: HTTP
+                      path: /
+                      port: 8080
+                  livenessProbe:
+                    initialDelaySeconds: 5
+                    periodSeconds: 120
+                    successThreshold: 1
+                    failureThreshold: 2
+                    httpGet:
+                      host:
+                      scheme: HTTP
+                      path: /health
+                      port: 8080
+    
+    - name: K8 start backend service
+      k8s:
+        state: present
+        definition:
+          kind: Service
+          metadata:
+            name: cc-backend-service
+            namespace: cc
+          spec:
+            type: ClusterIP
+            selector:
+              app: nginx-backend
+            ports:
+            - name: backend-port
+              port: 8080
+              targetPort: backend-service
+
+    - name: K8 frontend deployment
+      k8s:
+        state: present
+        definition:
+          kind: Deployment
+          metadata:
+            name: cc-frontend
+            namespace: cc
+            labels:
+              app: nginx-frontend
+          spec:
+            replicas: 4
+            selector:
+              matchLabels:
+                app: nginx-frontend
+            template:
+              metadata:
+                labels:
+                  app: nginx-frontend
+              spec:
+                containers:
+                - name: nginx-frontend
+                  image: pdcnguyen1998/cc:frontend
+                  ports:
+                    - containerPort: 8080
+                      name: frontend-servic
+                  readinessProbe:
+                    initialDelaySeconds: 5
+                    periodSeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 2
+                    httpGet:
+                      scheme: HTTP
+                      path: /
+                      port: 8080
+                  livenessProbe:
+                    initialDelaySeconds: 5
+                    periodSeconds: 5
+                    successThreshold: 1
+                    failureThreshold: 2
+                    httpGet:
+                      host:
+                      scheme: HTTP
+                      path: /health
+                      port: 8080
+                    
+    - name: K8 start frontend service
+      k8s:
+        state: present
+        definition:
+          kind: Service
+          metadata:
+            name: cc-frontend-service
+            namespace: cc
+          spec:
+            type: NodePort
+            selector:
+              app: nginx-frontend
+            ports:
+            - name: frontend-port
+              port: 3000
+              targetPort: frontend-servic

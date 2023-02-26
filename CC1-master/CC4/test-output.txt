@@ -1,0 +1,39 @@
+Sending 100 requests to 34.107.49.89:31063...
+Sending 100 requests to 34.159.100.222:31063...
+Sending 100 requests to 34.89.243.14:31063...
+
+Encountered 4 frontends:
+cc-frontend-7d9d7898ff-8fl7x
+cc-frontend-7d9d7898ff-bm76m
+cc-frontend-7d9d7898ff-lpxt2
+cc-frontend-7d9d7898ff-cck78
+
+Encountered 6 backends:
+cc-backend-f95774df6-frvs5
+cc-backend-f95774df6-4rs4l
+cc-backend-f95774df6-qzpx7
+cc-backend-f95774df6-rrrd7
+cc-backend-f95774df6-rwfzl
+cc-backend-f95774df6-q47rw
+
+Encountered 18 reply texts:
+Hey! You are IP 10.233.102.144 and requested /etc/nginx/html/ from IP 10.233.102.142 (cc-backend-f95774df6-4rs4l)
+Hey! You are IP 10.233.102.144 and requested /etc/nginx/html/ from IP 10.233.71.15 (cc-backend-f95774df6-qzpx7)
+Hey! You are IP 10.233.102.144 and requested /etc/nginx/html/ from IP 10.233.75.15 (cc-backend-f95774df6-rwfzl)
+Hey! You are IP 10.233.102.145 and requested /etc/nginx/html/ from IP 10.233.102.143 (cc-backend-f95774df6-frvs5)
+Hey! You are IP 10.233.102.145 and requested /etc/nginx/html/ from IP 10.233.71.16 (cc-backend-f95774df6-q47rw)
+Hey! You are IP 10.233.102.145 and requested /etc/nginx/html/ from IP 10.233.75.16 (cc-backend-f95774df6-rrrd7)
+Hey! You are IP 10.233.71.17 and requested /etc/nginx/html/ from IP 10.233.102.142 (cc-backend-f95774df6-4rs4l)
+Hey! You are IP 10.233.71.17 and requested /etc/nginx/html/ from IP 10.233.102.143 (cc-backend-f95774df6-frvs5)
+Hey! You are IP 10.233.71.17 and requested /etc/nginx/html/ from IP 10.233.71.15 (cc-backend-f95774df6-qzpx7)
+Hey! You are IP 10.233.71.17 and requested /etc/nginx/html/ from IP 10.233.71.16 (cc-backend-f95774df6-q47rw)
+Hey! You are IP 10.233.71.17 and requested /etc/nginx/html/ from IP 10.233.75.15 (cc-backend-f95774df6-rwfzl)
+Hey! You are IP 10.233.71.17 and requested /etc/nginx/html/ from IP 10.233.75.16 (cc-backend-f95774df6-rrrd7)
+Hey! You are IP 10.233.75.17 and requested /etc/nginx/html/ from IP 10.233.102.142 (cc-backend-f95774df6-4rs4l)
+Hey! You are IP 10.233.75.17 and requested /etc/nginx/html/ from IP 10.233.102.143 (cc-backend-f95774df6-frvs5)
+Hey! You are IP 10.233.75.17 and requested /etc/nginx/html/ from IP 10.233.71.15 (cc-backend-f95774df6-qzpx7)
+Hey! You are IP 10.233.75.17 and requested /etc/nginx/html/ from IP 10.233.71.16 (cc-backend-f95774df6-q47rw)
+Hey! You are IP 10.233.75.17 and requested /etc/nginx/html/ from IP 10.233.75.15 (cc-backend-f95774df6-rwfzl)
+Hey! You are IP 10.233.75.17 and requested /etc/nginx/html/ from IP 10.233.75.16 (cc-backend-f95774df6-rrrd7)
+
+All tests passed.

@@ -1,0 +1,11 @@
+docker build -t pdcnguyen1998/cc:backend -f backend.Dockerfile .
+docker build -t pdcnguyen1998/cc:frontend -f frontend.Dockerfile .
+
+docker push pdcnguyen1998/cc:backend
+docker push pdcnguyen1998/cc:frontend
+
+ansible-playbook -i hosts.ini -u pdcnguyen -b -v --private-key=~/.ssh/id_rsa webapp.yml
+
+sudo kubectl get service cc-frontend-service
+
+python3 test-deployment.py 34.107.49.89:31063 34.159.100.222:31063 34.89.243.14:31063
